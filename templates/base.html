@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <meta charset="utf-8">
+   <title>{% block title %}{% endblock %}</title>
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/menuslyle.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/slyle.css') }}">
+ </head>
+ <body>
+	<div id="menu">
+	 <a class="btn" href="/create"> Создать</a>
+    </div>
+
+    <div id="container">
+		<div id="dano">
+
+            {% block body %}{% endblock %}
+
+		</div>
+	</div>
+</body>
+</html>

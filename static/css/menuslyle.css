@@ -1,0 +1,50 @@
+body {
+	background:#F0F8FF;
+}
+#menu {
+	background-image: linear-gradient(to top, #b721ff 0%, #21d4fd 100%);
+	border-radius: 0px 15px 15px 0px;
+	height: inherit;
+	width: 80px;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	position: fixed;
+	-webkit-box-shadow: 1px 1px 50px 2px rgba(34,6,48,0.44); 
+	box-shadow: 1px 1px 50px 2px rgba(34,6,48,0.44);
+}
+
+ #logo {
+	padding-top: 15px;
+	width: 50px;
+	padding-left: 14px;
+ }
+
+#glav{
+	padding-top: 15px;
+	width: 50px;
+	padding-left: 14px;
+
+}
+#sms {
+	padding-top: 15px;
+	width: 50px;
+	padding-left: 14px;
+}
+#news{
+	padding-top: 15px;
+	width: 50px;
+	padding-left: 14px;
+}
+ #set {
+	position: fixed; 
+	bottom: 15px;
+	width: 40px;
+	left: 14px;
+ }
+ 
+ p {
+	color: #808080;
+	font-family: GothamNarrSSm;
+	font-size: 16px;	
+ }

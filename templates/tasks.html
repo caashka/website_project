@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Задания
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Все задания</h1>
+    {% for i in tasks %}
+    <div class="alert alert-info">
+        <h2> {{ i.title }}</h2>
+        <p> {{ i.text }}</p>
+        <p><b> {{ i.data }} {{ i.user_to }}</b></p>
+    </div>
+    {% endfor %}
+</div>
+
+
+
+{% endblock %}
