@@ -46,6 +46,8 @@ def allowed_extensions(filename):
     if not'.' in filename:
         return False
     ext = filename.rsplit('.', 1)[1]
+    if filename.rsplit('.', 1)[0] == '':
+        return False
     if ext.upper() in allowed_extensions:
         return True
     else:
@@ -74,6 +76,7 @@ def create_task():
             return redirect('/tasks')
 
         for file in files:
+            print(file.filename)
 
             if not allowed_extensions(file.filename):
                 print('неверное расширение')
