@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.bd'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -40,28 +41,63 @@ def tasks():
     return render_template("tasks.html", tasks=tasks, files=files)
 
 
+app.config['MAX_FILESIZE'] = 1024 * 1024
+app.config['ALLOWED_EXTENSIONS'] = ['PNG', 'JPEG', 'JPG', 'DOCX', 'PDF']
+
+
+def allowed_file_size(filesize):
+    if int(filesize) <= app.config['MAX_FILESIZE']:
+        return True
+    else:
+        return False
+
+
+def allowed_extensions(filename):
+    if not'.' in filename:
+        return False
+    ext = filename.rsplit('.', 1)[1]
+    if ext.upper() in app.config['ALLOWED_EXTENSIONS']:
+        return True
+    else:
+        return False
+
+
 @app.route('/create', methods=['GET', 'POST'])
 def create_task():
     if request.method == "POST":
+        print(request.cookies)
+
         title = request.form['title']
         text = request.form['text']
         files = request.files.getlist('file')
         task = Tasks(title=title, text=text, user_to=1, user_from=1)
-        for file in files:
-            print(file)
-            add = Files(task_id=1, file=file.read())
-            try:
-                db.session.add(add)
-                db.session.commit()
-            except:
-                print('ошибка в файлах')
-                return redirect('/tasks')
+        if request.method == "POST":
+            print(request.cookies)
+            if not allowed_file_size(request.cookies.get('filesize')):
+                print('file too big')
+                return redirect('/create')
         try:
             db.session.add(task)
             db.session.commit()
         except:
             print('ошибка в таске')
             return redirect('/tasks')
+
+        for file in files:
+
+            if not allowed_extensions(file.filename):
+                print('неверное расширение')
+                return redirect('/create')
+
+            add = Files(task_id=task.id, file=file.read())
+
+            try:
+                db.session.add(add)
+                db.session.commit()
+            except:
+                print('ошибка в файлах')
+                return redirect('/tasks')
+
         return render_template("create.html")
     else:
         return render_template("create.html")
