@@ -8,20 +8,34 @@
 <div class="container mt-5">
     <h1> Добавлениe задания</h1>
     <form method="post" enctype="multipart/form-data">
-        <input type="text" name="title" id="title" class="form-control" placeholder="Введите название"><br>
+        <input type="text" name="title" id="title" class="form-control" placeholder="Введите заголовок"><br>
         <input type="text" name="text" id="text" class="form-control" placeholder="Введите название"><br>
-        <input oninput="filesize(this);"  type="file" name="file" multiple>
+        <label>Установить дедлайн?</label>
+        <input type="radio" id="yes" value="yes" name="deadline"><label for="yes" class="light">Да</label>
+        <input type="radio" id="no" value="no" name="deadline" checked><label for="no" class="light">Нет</label><br>
+        <input type="date" id="date" name="date"><br>
+        <input oninput="filesize(this);"  type="file" name="file" multiple><br>
+
         <input type="submit" class="btn btn-success">
         <script>
             function filesize(elem){
             size = 0;
-            console.log(elem.files.length)
-            for(let i = 0; i < elem.files.length; i++){
+            file_length = 0;
+            file_length =  elem.files.length
+            document.cookie = 'filesize=0'
+            console.log(document.cookie)
+            for(let i = 0; i < file_length; i++){
                 size += elem.files[i].size;
-                console.log(size)
                 }
-            document.cookie = 'filesize=' + size
+            if (file_length == 0) {
+                document.cookie = 'filesize=0'
+                }
+            else {
+                document.cookie = 'filesize=' + size
+                }
+            console.log(document.cookie)
             }
+
 
         </script>
 
